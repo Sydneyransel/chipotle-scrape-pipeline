@@ -1,6 +1,5 @@
 import os
 import re
-import time
 from pathlib import Path
 import datetime
 from dotenv import load_dotenv
@@ -23,27 +22,28 @@ def url_to_slug(url):
     return slug.strip('_')
 
 
-# --- Step 01: Search + scrape with Firecrawl ---
+if __name__ == "__main__":
+    # --- Step 01: Search + scrape with Firecrawl ---
 
-api_url = "https://api.firecrawl.dev/v2/search"
+    api_url = "https://api.firecrawl.dev/v2/search"
 
-headers = {
-    "Authorization": f"Bearer {api_key}"
-}
+    headers = {
+        "Authorization": f"Bearer {api_key}"
+    }
 
-payload = {
-    "query": "Chipotle investor relations press releases",
-    "limit": 5,
-    "scrapeOptions": {"formats": ["markdown"]}
-}
+    payload = {
+        "query": "Chipotle investor relations press releases",
+        "limit": 5,
+        "scrapeOptions": {"formats": ["markdown"]}
+    }
 
-response = requests.post(api_url, headers=headers, json=payload)
+    response = requests.post(api_url, headers=headers, json=payload)
 
-data = response.json()
-results = data["data"]["web"]
-print(f"Firecrawl returned {len(results)} results")
+    data = response.json()
+    results = data["data"]["web"]
+    print(f"Firecrawl returned {len(results)} results")
 
-for r in results:
-    print(f"  - {r['title']}")
-    print(f"    {r['url']}")
-    print(f"    markdown length: {len(r.get('markdown') or '')} chars")
+    for r in results:
+        print(f"  - {r['title']}")
+        print(f"    {r['url']}")
+        print(f"    markdown length: {len(r.get('markdown') or '')} chars")
