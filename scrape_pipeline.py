@@ -63,3 +63,6 @@ if __name__ == "__main__":
         print(f"  - {r['title']}")
         print(f"    {r['url']}")
         print(f"    markdown length: {len(r.get('markdown') or '')} chars")
+
+    count = save_results(results, "knowledge/raw")
+    print(f"Saved {count} files to knowledge/raw/")
