@@ -19,6 +19,9 @@ def test_url_to_slug_deep_path():
 def test_url_to_slug_no_path():
     assert url_to_slug("https://ir.chipotle.com") == "ir_chipotle_com"
 
+def test_url_to_slug_query_string():
+    assert url_to_slug("https://ir.chipotle.com/page?q=results&sort=date") == "ir_chipotle_com_page"
+
 
 def test_save_results_writes_files():
     results = [

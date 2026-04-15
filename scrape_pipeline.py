@@ -13,6 +13,7 @@ api_key = os.getenv("FIRECRAWL_API_KEY")
 def url_to_slug(url):
     # Strip scheme
     slug = re.sub(r'^https?://', '', url)
+    slug = re.sub(r'[?#].*', '', slug)  # strip query string and fragment
     # Strip trailing slash
     slug = slug.rstrip('/')
     # Replace dots and slashes with underscores
@@ -31,7 +32,10 @@ def save_results(results, out_dir):
         markdown = result.get("markdown")
         if not markdown:
             continue
-        slug = url_to_slug(result["url"])
+        url = result.get("url")
+        if not url:
+            continue
+        slug = url_to_slug(url)
         filename = f"{today}_{slug}.md"
         (out_path / filename).write_text(markdown, encoding="utf-8")
         saved += 1
