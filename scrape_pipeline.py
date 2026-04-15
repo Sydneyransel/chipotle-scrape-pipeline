@@ -22,6 +22,22 @@ def url_to_slug(url):
     return slug.strip('_')
 
 
+def save_results(results, out_dir):
+    out_path = Path(out_dir)
+    out_path.mkdir(parents=True, exist_ok=True)
+    today = datetime.date.today().isoformat()
+    saved = 0
+    for result in results:
+        markdown = result.get("markdown")
+        if not markdown:
+            continue
+        slug = url_to_slug(result["url"])
+        filename = f"{today}_{slug}.md"
+        (out_path / filename).write_text(markdown, encoding="utf-8")
+        saved += 1
+    return saved
+
+
 if __name__ == "__main__":
     # --- Step 01: Search + scrape with Firecrawl ---
 
