@@ -1,0 +1,14 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(venv/Scripts/pip install:*)",
+      "Bash(venv/Scripts/python:*)",
+      "Bash(git add:*)",
+      "Bash(git commit:*)",
+      "Bash(python:*)",
+      "Bash(git check-ignore *)",
+      "Bash(Get-ChildItem -Recurse .claude)",
+      "Bash(Select-Object FullName)"
+    ]
+  }
+}
